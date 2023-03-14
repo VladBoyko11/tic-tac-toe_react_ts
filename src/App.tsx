@@ -2,9 +2,12 @@ import React, {useEffect, useState} from 'react';
 import './App.css';
 import GameRecord from "./components/GameRecord";
 import Board from "./components/Board";
+import Example from "./components/Example"
 
 function App() {
-
+    const MyContext = React.createContext({
+        array: [1, 2, 3, 4]
+    })
     const [squares, setSquares] = useState(Array(9).fill(null))
     const [togglePlayerMoveValue, setTogglePlayerMoveValue] = useState('X')
     const [gameOver, setGameOver] = useState(false)
@@ -64,6 +67,11 @@ function App() {
         <div className="App">
             <GameRecord name='Game Record' age={10} gameRecord={gameRecord}/>
             <Board arrSquares={squares} handleBtn={handleBtn}/>
+            <MyContext.Provider value={{array: [1, 2]}}>
+                <MyContext.Consumer>
+                    {value => <Example array={value.array}/>}
+                </MyContext.Consumer>
+            </MyContext.Provider>
         </div>
     );
 }
